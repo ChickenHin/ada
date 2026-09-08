@@ -1,17 +1,7 @@
 name: Ubuntu
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
+  workflow_dispatch: 
 
 permissions:
   contents: read
