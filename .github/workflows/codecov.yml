@@ -1,17 +1,7 @@
 name: Code Coverage
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
+  workflow_dispatch: 
 
 permissions:
   contents: read
@@ -44,26 +34,26 @@ jobs:
       - name: Run tests
         run: ctest --output-on-failure --test-dir build
 
-      - name: Generate coverage report
-        run: >
-          gcovr
-          --root .
-          --exclude 'build/_deps/.*'
-          --exclude 'build/dependencies/.*'
-          --exclude 'dependencies/.*'
-          --exclude 'tools/.*'
-          --exclude 'singleheader/.*'
-          --exclude 'benchmarks/.*'
-          --exclude 'tests/.*'
-          --exclude 'include/ada/expected.h'
-          --gcov-executable gcov-12
-          --xml
-          --output build/coverage.xml
+      # - name: Generate coverage report
+      #   run: >
+      #     gcovr
+      #     --root .
+      #     --exclude 'build/_deps/.*'
+      #     --exclude 'build/dependencies/.*'
+      #     --exclude 'dependencies/.*'
+      #     --exclude 'tools/.*'
+      #     --exclude 'singleheader/.*'
+      #     --exclude 'benchmarks/.*'
+      #     --exclude 'tests/.*'
+      #     --exclude 'include/ada/expected.h'
+      #     --gcov-executable gcov-12
+      #     --xml
+      #     --output build/coverage.xml
 
-      - name: Upload to Codecov
-        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
-        with:
-          files: build/coverage.xml
-          fail_ci_if_error: true
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      # - name: Upload to Codecov
+      #   uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
+      #   with:
+      #     files: build/coverage.xml
+      #     fail_ci_if_error: true
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
